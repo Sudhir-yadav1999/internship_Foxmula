@@ -59,3 +59,188 @@ public class time_obj {
 		 
 	}
 }
+
+Ques -2
+
+Create a class Stack that declares a stack and the methods to perform push ( ), pop ( ) and checkEmpty (
+) operations on the stack. Create two stacks and write a menu-driven program to perform operations on
+the two stacks. Whenever the number of elements in the two stacks becomes equal, a message should
+automatically be generated displaying the number of elements in each stack.
+
+	
+	
+import java.util.*;
+
+public class Stack {
+	private int stack[],top,max=10;
+	
+	Stack(){
+		top=-1;
+		stack=new int[max];
+	}
+	
+	
+	void push(int data) {
+		if(top>=max)
+			System.out.println("Stack Overflow!!");
+		else
+			stack[++top]=data;
+	}
+	
+	
+	boolean checkEmpty() {
+		
+		if(top==-1)
+			return true;
+		else
+			return false;
+	}
+	
+
+	int pop() {
+		if(checkEmpty())
+			return -1;
+			
+		else
+			return stack[top--];
+	}
+	
+	
+	void CountCheck(Stack s2) {
+		if(this.top==s2.top && s2.top>-1)
+			System.out.println("The number of elements in both the stacks = "+(s2.top+1));
+	}
+	
+	
+	void display() {
+		if(checkEmpty()) 
+			System.out.println("Stack Underflow!!");
+		for(int i=0;i<=top;i++)
+			System.out.print(stack[i]+"\t");
+	}
+	
+	public static void main(String []args) {
+		Scanner sc=new Scanner(System.in);
+		Stack s1=new Stack();
+		Stack s2=new Stack();
+		int ch,temp;
+		do {
+			System.out.println("1. Push Element in stack 1 ");
+			System.out.println("2. Pop Element in stack 1 ");
+			System.out.println("3. Push Element in stack 2 ");
+			System.out.println("4. Pop Element in stack 2 ");
+			System.out.println("Enter your choice? ");
+			ch=sc.nextInt();
+			s1.CountCheck(s2);
+			switch(ch){
+			case 1:
+				System.out.println("Enter the data you want to add to stack 1");
+				s1.push(sc.nextInt());
+				break;
+			
+			case 2:
+				temp=s1.pop();
+				if(temp==-1) 
+					System.out.println("Stack Underflow!!");
+				else	
+					System.out.println("The popped element is:"+temp);
+				s1.display();
+				break;
+			
+			case 3:
+				System.out.println("Enter the data you want to add to stack 2");
+				s2.push(sc.nextInt());
+				break;
+				
+			case 4:
+				temp=s2.pop();
+				if(temp==-1) 
+					System.out.println("Stack Underflow!!");
+				else	
+					System.out.println("The popped element is:"+temp);
+					s2.display();
+				break;
+				
+			}
+			System.out.println("Do you want to continue Yes/No");
+			ch=sc.nextInt();
+		}while(ch==1);
+	}
+
+Ques -3
+Write an inheritance hierarchy for classes Quadrilateral, Trapezoid, Parallelogram, Rectangle and Square.
+Use Quadrilateral as the super class of the hierarchy. The instance variables of Quadrilateral should be
+the x-y coordinate pairs for the four endpoints of the Quadrilateral. Write a program that instantiates
+objects of your classes and outputs each object's area (except Quadrilateral
+	
+    class Quadrilateral {
+    public int x1,x2,x3,x4,y1,y2,y3,y4;
+    public void setCoordinate(int a, int b, int c, int d, int e , int f, int g, int h){
+    x1=a;x2=b;x3=c;x4=d;y1=e;y2=f;y3=g;y4=h;    
+    }
+}
+class Trapezoid extends Quadrilateral{
+    private int height;
+    Trapezoid(int a, int b, int c, int d, int e, int f , int g , int h , int height ){
+        setCoordinate(a,b,c,d,e,f,g,h);
+        this.height = height;
+    }
+        int area(){
+            int d1= (int)Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+            int d2= (int) Math.sqrt((x3-x4)*(x3-x4)+(y3-y4)*(y3-y4));
+            return (int)((d1+d2)*height)/2;
+    }
+}
+
+class Paralleogram extends Quadrilateral{
+    private int height;
+    Paralleogram(int a, int b, int c, int d, int e, int f , int g , int h , int height ){
+        setCoordinate(a,b,c,d,e,f,g,h);
+        this.height = height;
+    }
+        int area(){
+            int d1= (int)Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+            return  d1*height;
+    }
+}
+
+class Square extends Quadrilateral{
+    Square(int a, int b, int c, int d,int e, int f, int g, int h){
+        setCoordinate(a,b,c,d,e,f,g,h);
+    }
+    int area(){
+        int d= (int)Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+        return d*d;
+    }
+}
+class Rectangle extends Quadrilateral{
+    Rectangle(int a, int b, int c ,int d,int e, int f, int g , int h ){
+          setCoordinate(a,b,c,d,e,f,g,h);
+    }
+    int area(){
+        int d1 =(int)Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+        int d2 =(int)Math.sqrt((x3-x4)*(x3-x4)+(y3-y4)*(y3-y4));
+        return d1*d2;
+    }
+}   
+public class AreaSolving{
+    public static void main(String args[]){
+      Square sq=new Square(10,20,20,10,10,20,20,10); 
+	    
+      System.out.println("area  of square is:"+sq.area());
+	    
+      Rectangle rec= new Rectangle(10,20,30,10,30,20,20,10);
+	    
+      System.out.println("area of rectangle is:"+rec.area());
+	    
+      Paralleogram para= new Paralleogram(10,20,30,10,30,0,20,10,20);
+	    
+      System.out.println("area of paralleogram is:"+para.area());
+	    
+      Trapezoid trap= new Trapezoid(10,20,30,10,30,0,20,10,20);
+	    
+      System.out.println("area  of trapezoid is:"+trap.area());
+    }
+}
+
+
